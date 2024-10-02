@@ -18,39 +18,36 @@ This project is a template to get you started on setting up a Cloudflare Worker 
 3. Configure environment variables:
    Open `wrangler.toml` and fill in the following keys:
    - `TELEGRAM_BOT_TOKEN`: Your Telegram bot token (get it from [@BotFather](https://t.me/botfather))
-   - `TELEGRAM_CHAT_ID`: Your Telegram chat ID (use [@userinfobot](https://t.me/userinfobot) to get it)
+   - `TELEGRAM_CHAT_ID`: Your Telegram channel's chat ID (see below)
    - `HELIUS_API_KEY`: Your Helius API key (get it from [Helius](https://www.helius.dev/))
 
-   For detailed steps on creating a Telegram bot and getting the chat ID, refer to the [Telegram Bot API documentation](https://core.telegram.org/bots#6-botfather).
+   To get your Telegram channel's chat ID:
+   1. Create a channel and add your bot as an administrator.
+   2. Send a message to the channel.
+   3. Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
+   4. Find the `"chat":{"id":` field in the response. This is your chat ID.
 
 4. Deploy to Cloudflare:
    ```
    npm run deploy
    ```
-   This will prompt you to log in to your Cloudflare account if you haven't already.
 
 5. Create the webhook:
-   After deployment, you'll get a URL for your worker. Use this URL to create the webhook by sending a POST request to the `/create-webhook` endpoint:
    ```
    curl -X POST https://your-worker-url.workers.dev/create-webhook
    ```
    Replace `your-worker-url` with your actual worker URL.
 
-6. The webhook is now set up and targeting the `/webhook` endpoint of your worker.
-
-That's it! Your bot should now be operational and will send messages.
+That's it! Your bot should now be operational and will send messages to your Telegram channel.
 
 ## Customization
 
-You can change the `create-webhook` endpoint in `src/index.ts` to create a new webhook.
-
-You can modify the `/webhook` endpoint in `src/index.ts`  to change how messages are formatted or to listen for different types of events. 
+Modify `src/index.ts` to change webhook creation or message formatting.
 
 ## Troubleshooting
 
-If you're not receiving messages, check the following:
-- Ensure all environment variables in `wrangler.toml` are correctly set.
-- Verify that your Telegram bot has permission to send messages to the specified chat.
-- Check the Cloudflare Worker logs for any error messages.
+- Check environment variables in `wrangler.toml`.
+- Ensure bot has permission to send messages to the channel.
+- Review Cloudflare Worker logs for errors.
 
-For more help, refer to the [Cloudflare Workers documentation](https://developers.cloudflare.com/workers/) or the [Helius documentation](https://docs.helius.dev/).
+For more help, see [Cloudflare Workers docs](https://developers.cloudflare.com/workers/) or [Helius docs](https://docs.helius.dev/).
