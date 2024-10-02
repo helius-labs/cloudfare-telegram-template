@@ -54,4 +54,3 @@ If you're not receiving messages, check the following:
 - Check the Cloudflare Worker logs for any error messages.
 
 For more help, refer to the [Cloudflare Workers documentation](https://developers.cloudflare.com/workers/) or the [Helius documentation](https://docs.helius.dev/).
-# cloudfare-telegram-template
