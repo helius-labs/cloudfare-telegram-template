@@ -1,0 +1,14 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "cloudfare-telegram-template"
+main = "src/index.ts"
+compatibility_date = "2024-06-20"
+compatibility_flags = ["nodejs_compat_v2"]
+
+[observability]
+enabled = true
+
+[vars]
+# Do not commit real values to version control.
+TELEGRAM_BOT_TOKEN = ""
+TELEGRAM_CHAT_ID = ""
+HELIUS_API_KEY = ""
