@@ -27,6 +27,10 @@ This project is a template to get you started on setting up a Cloudflare Worker 
    3. Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
    4. Find the `"chat":{"id":` field in the response. This is your chat ID.
 
+   Watch this video:
+
+   [![Get Telegram Chat ID](https://img.youtube.com/vi/l5YDtSLGhqk/0.jpg)](https://www.youtube.com/watch?v=l5YDtSLGhqk)
+
 4. Deploy to Cloudflare:
    ```
    npm run deploy
@@ -37,6 +41,8 @@ This project is a template to get you started on setting up a Cloudflare Worker 
    curl -X POST https://your-worker-url.workers.dev/create-webhook
    ```
    Replace `your-worker-url` with your actual worker URL.
+
+You can use this `/webhook` endpoint for other Helius services that require a webhook URL.
 
 That's it! Your bot should now be operational and will send messages to your Telegram channel.
 
