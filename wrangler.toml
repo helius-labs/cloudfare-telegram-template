@@ -12,3 +12,4 @@ enabled = true
 TELEGRAM_BOT_TOKEN = ""
 TELEGRAM_CHAT_ID = ""
 HELIUS_API_KEY = ""
+AUTH_TOKEN = ""

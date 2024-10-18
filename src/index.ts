@@ -54,6 +54,11 @@ async function sendTelegramMessage(message: string, env: Env) {
 
 app.post('/webhook', async (c) => {
 
+  const authToken = c.req.header('Authorization');
+  if (authToken !== c.env.AUTH_TOKEN) {
+    return c.text('Unauthorized', 401);
+  }
+
   let data;
   try {
     data = await c.req.json();
