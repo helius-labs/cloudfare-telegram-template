@@ -63,7 +63,6 @@ app.post('/webhook', async (c) => {
     return c.text('Error processing webhook', 400);
   }
 
-  console.log('Received webhook data:', JSON.stringify(data, null, 2));
   if (!Array.isArray(data) || data.length === 0) {
     console.log('No transactions in webhook data');
     return c.text('No transactions to process', 200);
