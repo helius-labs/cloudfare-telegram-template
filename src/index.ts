@@ -4,6 +4,7 @@ type Env = {
   HELIUS_API_KEY: string;
   TELEGRAM_BOT_TOKEN: string;
   TELEGRAM_CHAT_ID: string;
+  AUTH_TOKEN: string;
 };
 
 const app = new Hono<{ Bindings: Env }>();
@@ -11,7 +12,7 @@ const app = new Hono<{ Bindings: Env }>();
 app.get('/', (c) => c.text('Solana Action Bot is running!'));
 
 app.post('/create-webhook', async (c) => {
-  const webhookURL = `${new URL(c.req.url).origin}/webhook`;
+  const webhookURL = `${new URL(c.req.url).origin}/webhook`;  
   console.log('Setting up webhook with URL:', webhookURL);
 
   const response = await fetch(
@@ -25,7 +26,8 @@ app.post('/create-webhook', async (c) => {
         webhookURL: webhookURL,
         transactionTypes: ["NFT_SALE"],
         accountAddresses: ["M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K"], // Magic Eden v2 program
-        webhookType: "enhanced"
+        webhookType: "enhanced",
+        authHeader: c.env.AUTH_TOKEN
       }),
     }
   );
@@ -51,8 +53,6 @@ async function sendTelegramMessage(message: string, env: Env) {
 }
 
 app.post('/webhook', async (c) => {
-  console.log('Webhook endpoint hit');
-  console.log('Request URL:', c.req.url);
 
   let data;
   try {
@@ -63,6 +63,7 @@ app.post('/webhook', async (c) => {
     return c.text('Error processing webhook', 400);
   }
 
+  console.log('Received webhook data:', JSON.stringify(data, null, 2));
   if (!Array.isArray(data) || data.length === 0) {
     console.log('No transactions in webhook data');
     return c.text('No transactions to process', 200);
